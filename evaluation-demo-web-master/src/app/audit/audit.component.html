@@ -1,0 +1,41 @@
+<h1>Hi {{currentUser.firstName}}!</h1>
+<p>You're logged in with Angular 8!!</p>
+<h3>All login audit :</h3>
+<div style="display:flex; flex-direction: row;">
+   <div>
+    <input type="text" placeholder="Search" id="Search" style="width: 400px;" #Search="ngModel" [(ngModel)]="searchText"/>
+   </div>
+   <div style="margin-left:250px">
+   <select  id="selectedTimeSlot"
+   name="selectedTimeSlot" [(ngModel)]="selectedTimeSlot" 
+     (change)="changeTimeFormate12to24(selectedTimeSlot)" name="selectedTimeSlot">
+   
+     <option>24 hr Format</option>
+    
+
+   </select></div>
+</div><br>
+<table class="table table-bordered">
+    <thead>
+       <tr>
+          <th>user</th>
+          <th>_id</th>
+          <th>Login</th>
+          <th>Logout</th>
+          <th>IP</th>
+          
+       </tr>
+    </thead>
+    <tbody>
+       <tr *ngFor="let audit of audits | filter:searchText | paginate:{itemsPerPage:10,currentPage:p}; let i=indeex ">
+          <th>{{ audit.user }}</th>
+          <td>{{ audit._id }}</td>
+          <td>{{ audit.loginTime}}</td>
+          <td>{{ audit.logoutTime}}</td>
+          <td>{{ audit.ip }}</td>
+        
+       </tr>
+    </tbody>
+   
+ </table>
+ <pagination-controls (pageChange)="p=$event"></pagination-controls>
